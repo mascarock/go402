@@ -1,0 +1,35 @@
+# GoPayments — Coolify / generic Docker Compose
+#
+# Coolify: add a Docker Compose application, set the compose file to this path.
+# Publish the "web" service (port 80). The API is only reachable via /api through nginx.
+#
+# Optional: set COOLIFY_* or custom domains in the Coolify UI; no Traefik labels required
+# for a single published port if Coolify handles routing.
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      LISTEN_ADDR: ":8080"
+    expose:
+      - "8080"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/api/stats"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
