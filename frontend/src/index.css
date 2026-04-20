@@ -3,15 +3,71 @@
 @tailwind utilities;
 
 @layer base {
+  :root,
+  :root.theme-dark {
+    --n0-rgb: 0 0 0;
+    --n1-rgb: 8 8 8;
+    --n2-rgb: 14 14 14;
+    --n3-rgb: 20 20 20;
+    --n4-rgb: 26 26 26;
+    --n5-rgb: 38 38 38;
+    --n6-rgb: 51 51 51;
+    --n7-rgb: 68 68 68;
+    --n8-rgb: 85 85 85;
+    --n9-rgb: 136 136 136;
+    --n10-rgb: 224 224 224;
+    --select-bg: #333;
+    --select-fg: #fff;
+  }
+
+  :root.theme-light {
+    --n0-rgb: 255 255 255;
+    --n1-rgb: 251 251 251;
+    --n2-rgb: 247 247 247;
+    --n3-rgb: 241 241 241;
+    --n4-rgb: 229 229 229;
+    --n5-rgb: 212 212 212;
+    --n6-rgb: 153 153 153;
+    --n7-rgb: 119 119 119;
+    --n8-rgb: 85 85 85;
+    --n9-rgb: 51 51 51;
+    --n10-rgb: 10 10 10;
+    --select-bg: #d4d4d4;
+    --select-fg: #000;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root.theme-system {
+      --n0-rgb: 255 255 255;
+      --n1-rgb: 251 251 251;
+      --n2-rgb: 247 247 247;
+      --n3-rgb: 241 241 241;
+      --n4-rgb: 229 229 229;
+      --n5-rgb: 212 212 212;
+      --n6-rgb: 153 153 153;
+      --n7-rgb: 119 119 119;
+      --n8-rgb: 85 85 85;
+      --n9-rgb: 51 51 51;
+      --n10-rgb: 10 10 10;
+      --select-bg: #d4d4d4;
+      --select-fg: #000;
+    }
+  }
+
+  html, body {
+    background-color: rgb(var(--n0-rgb));
+    color: rgb(var(--n10-rgb));
+  }
+
   body {
-    @apply antialiased;
+    @apply antialiased font-sans;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   ::selection {
-    background: #333;
-    color: #fff;
+    background: var(--select-bg);
+    color: var(--select-fg);
   }
 
   input[type="number"]::-webkit-inner-spin-button,

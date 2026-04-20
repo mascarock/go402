@@ -16,11 +16,11 @@ export default function StatsBar({ stats }: { stats: PlatformStats | null }) {
   ]
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-px bg-border mb-8 sm:mb-10 border border-border">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-px bg-n-4 mb-8 sm:mb-10 border border-n-4">
       {items.map((item) => (
-        <div key={item.label} className="bg-bg p-3 sm:p-4">
-          <div className="text-[10px] font-mono text-fg-4 uppercase tracking-widest">{item.label}</div>
-          <div className="text-lg sm:text-xl font-semibold mt-1 font-mono tabular-nums text-fg-2">{item.value}</div>
+        <div key={item.label} className="bg-n-0 p-3 sm:p-4">
+          <div className="text-[10px] font-mono text-n-6 uppercase tracking-widest">{item.label}</div>
+          <div className="text-lg sm:text-xl font-semibold mt-1 font-mono tabular-nums text-n-9">{item.value}</div>
         </div>
       ))}
     </div>

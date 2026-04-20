@@ -86,21 +86,21 @@ export default function PaymentDemo() {
   return (
     <div>
       <div className="mb-8 sm:mb-10">
-        <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-fg">x402 Payment Demo</h1>
-        <p className="text-xs font-mono text-fg-3 mt-1">HTTP 402 micropayment flow simulation</p>
+        <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-n-10">x402 Payment Demo</h1>
+        <p className="text-xs font-mono text-n-8 mt-1">HTTP 402 micropayment flow simulation</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
         <div className="lg:col-span-1 space-y-6">
-          <div className="border border-border p-5">
-            <h3 className="text-xs font-medium uppercase tracking-wider text-fg-3 mb-4">Configuration</h3>
+          <div className="border border-n-4 p-5">
+            <h3 className="text-xs font-medium uppercase tracking-wider text-n-8 mb-4">Configuration</h3>
             <div className="space-y-4">
               <div>
-                <label className="text-[10px] font-mono text-fg-4 uppercase tracking-widest block mb-1.5">Tenant</label>
+                <label className="text-[10px] font-mono text-n-6 uppercase tracking-widest block mb-1.5">Tenant</label>
                 <select
                   value={selectedTenant}
                   onChange={(e) => setSelectedTenant(e.target.value)}
-                  className="w-full px-3 py-2 bg-surface border border-border text-fg-2 text-sm focus:outline-none focus:border-border-2 appearance-none"
+                  className="w-full px-3 py-2 bg-n-1 border border-n-4 text-n-9 text-sm focus:outline-none focus:border-n-5 appearance-none"
                 >
                   {tenants.map((t) => (
                     <option key={t.id} value={t.id}>{t.name}</option>
@@ -109,43 +109,43 @@ export default function PaymentDemo() {
               </div>
 
               <div>
-                <label className="text-[10px] font-mono text-fg-4 uppercase tracking-widest block mb-1.5">API Key</label>
+                <label className="text-[10px] font-mono text-n-6 uppercase tracking-widest block mb-1.5">API Key</label>
                 <input
                   type="password"
                   value={apiKey}
                   onChange={(e) => setApiKey(e.target.value)}
                   placeholder="sk_..."
-                  className="w-full px-3 py-2 bg-surface border border-border text-fg-2 font-mono text-sm focus:outline-none focus:border-border-2 placeholder:text-fg-4"
+                  className="w-full px-3 py-2 bg-n-1 border border-n-4 text-n-9 font-mono text-sm focus:outline-none focus:border-n-5 placeholder:text-n-6"
                 />
               </div>
             </div>
 
             <div className="mt-5">
               {step === 'idle' && (
-                <button onClick={stepRequest} className="w-full px-4 py-2.5 bg-surface-3 text-fg-2 border border-border text-xs font-medium uppercase tracking-wider hover:bg-border hover:text-fg transition-colors">
+                <button onClick={stepRequest} className="w-full px-4 py-2.5 bg-n-3 text-n-9 border border-n-4 text-xs font-medium uppercase tracking-wider hover:bg-n-4 hover:text-n-10 transition-colors">
                   Start Flow
                 </button>
               )}
               {step === 'payment_required' && (
-                <button onClick={stepPay} className="w-full px-4 py-2.5 bg-surface-3 text-fg-2 border border-border text-xs font-medium uppercase tracking-wider hover:bg-border hover:text-fg transition-colors">
+                <button onClick={stepPay} className="w-full px-4 py-2.5 bg-n-3 text-n-9 border border-n-4 text-xs font-medium uppercase tracking-wider hover:bg-n-4 hover:text-n-10 transition-colors">
                   Submit Payment
                 </button>
               )}
               {step === 'paid' && (
-                <button onClick={stepAccess} className="w-full px-4 py-2.5 bg-surface-3 text-fg-2 border border-border text-xs font-medium uppercase tracking-wider hover:bg-border hover:text-fg transition-colors">
+                <button onClick={stepAccess} className="w-full px-4 py-2.5 bg-n-3 text-n-9 border border-n-4 text-xs font-medium uppercase tracking-wider hover:bg-n-4 hover:text-n-10 transition-colors">
                   Access Resource
                 </button>
               )}
               {step === 'complete' && (
-                <button onClick={reset} className="w-full px-4 py-2.5 bg-bg text-fg-3 border border-border text-xs font-medium uppercase tracking-wider hover:bg-surface-2 hover:text-fg-2 transition-colors">
+                <button onClick={reset} className="w-full px-4 py-2.5 bg-n-0 text-n-8 border border-n-4 text-xs font-medium uppercase tracking-wider hover:bg-n-2 hover:text-n-9 transition-colors">
                   Reset
                 </button>
               )}
             </div>
           </div>
 
-          <div className="border border-border p-5">
-            <h3 className="text-xs font-medium uppercase tracking-wider text-fg-3 mb-4">Flow</h3>
+          <div className="border border-n-4 p-5">
+            <h3 className="text-xs font-medium uppercase tracking-wider text-n-8 mb-4">Flow</h3>
             <div className="space-y-0">
               {steps.map((s, i) => (
                 <div
@@ -155,15 +155,15 @@ export default function PaymentDemo() {
                   }`}
                 >
                   <div className={`w-5 h-5 flex items-center justify-center text-[10px] font-mono shrink-0 mt-0.5 border ${
-                    i < currentIdx ? 'border-fg-3 bg-surface-3 text-fg-2' :
-                    i === currentIdx ? 'border-fg-3 text-fg-2' :
-                    'border-border text-fg-4'
+                    i < currentIdx ? 'border-n-8 bg-n-3 text-n-9' :
+                    i === currentIdx ? 'border-n-8 text-n-9' :
+                    'border-n-4 text-n-6'
                   }`}>
                     {i < currentIdx ? '\u2713' : i + 1}
                   </div>
                   <div>
-                    <div className="text-xs font-medium text-fg-2">{s.label}</div>
-                    <div className="text-[10px] font-mono text-fg-4">{s.desc}</div>
+                    <div className="text-xs font-medium text-n-9">{s.label}</div>
+                    <div className="text-[10px] font-mono text-n-6">{s.desc}</div>
                   </div>
                 </div>
               ))}
@@ -172,31 +172,31 @@ export default function PaymentDemo() {
         </div>
 
         <div className="lg:col-span-2">
-          <div className="border border-border p-5 min-h-[300px] sm:min-h-[500px]">
-            <h3 className="text-xs font-medium uppercase tracking-wider text-fg-3 mb-4">Response</h3>
+          <div className="border border-n-4 p-5 min-h-[300px] sm:min-h-[500px]">
+            <h3 className="text-xs font-medium uppercase tracking-wider text-n-8 mb-4">Response</h3>
 
             {error && (
-              <div className="border border-border-2 bg-surface-2 px-3 py-2.5 mb-4 text-xs font-mono text-fg-3">
+              <div className="border border-n-5 bg-n-2 px-3 py-2.5 mb-4 text-xs font-mono text-n-8">
                 {error}
               </div>
             )}
 
             {step === 'idle' && (
-              <div className="text-fg-4 text-center py-20">
+              <div className="text-n-6 text-center py-20">
                 <div className="text-xs font-mono">Ready to start x402 flow</div>
               </div>
             )}
 
             {step === 'requesting' && (
-              <div className="text-fg-3 font-mono text-xs">
+              <div className="text-n-8 font-mono text-xs">
                 <div className="animate-pulse">&gt; GET /api/protected/data</div>
               </div>
             )}
 
             {step === 'payment_required' && paymentInfo && (
               <div>
-                <div className="text-[10px] font-mono text-fg-4 uppercase tracking-widest mb-3">HTTP 402</div>
-                <pre className="bg-surface text-xs font-mono text-fg-3 p-4 border border-border overflow-x-auto">
+                <div className="text-[10px] font-mono text-n-6 uppercase tracking-widest mb-3">HTTP 402</div>
+                <pre className="bg-n-1 text-xs font-mono text-n-8 p-4 border border-n-4 overflow-x-auto">
 {JSON.stringify({
   status: 402,
   headers: {
@@ -215,15 +215,15 @@ export default function PaymentDemo() {
             )}
 
             {step === 'paying' && (
-              <div className="text-fg-3 font-mono text-xs">
+              <div className="text-n-8 font-mono text-xs">
                 <div className="animate-pulse">&gt; POST /api/payments/process</div>
               </div>
             )}
 
             {step === 'paid' && token && (
               <div>
-                <div className="text-[10px] font-mono text-fg-4 uppercase tracking-widest mb-3">HTTP 200</div>
-                <pre className="bg-surface text-xs font-mono text-fg-3 p-4 border border-border overflow-x-auto">
+                <div className="text-[10px] font-mono text-n-6 uppercase tracking-widest mb-3">HTTP 200</div>
+                <pre className="bg-n-1 text-xs font-mono text-n-8 p-4 border border-n-4 overflow-x-auto">
 {JSON.stringify({
   success: true,
   token: token,
@@ -235,20 +235,20 @@ export default function PaymentDemo() {
             )}
 
             {step === 'accessing' && (
-              <div className="text-fg-3 font-mono text-xs space-y-1">
+              <div className="text-n-8 font-mono text-xs space-y-1">
                 <div className="animate-pulse">&gt; GET /api/protected/data</div>
-                <div className="text-fg-4 break-all">X-Payment-Token: {token}</div>
+                <div className="text-n-6 break-all">X-Payment-Token: {token}</div>
               </div>
             )}
 
             {step === 'complete' && result && (
               <div>
-                <div className="text-[10px] font-mono text-fg-4 uppercase tracking-widest mb-3">HTTP 200 &mdash; Complete</div>
-                <pre className="bg-surface text-xs font-mono text-fg-3 p-4 border border-border overflow-x-auto">
+                <div className="text-[10px] font-mono text-n-6 uppercase tracking-widest mb-3">HTTP 200 &mdash; Complete</div>
+                <pre className="bg-n-1 text-xs font-mono text-n-8 p-4 border border-n-4 overflow-x-auto">
 {JSON.stringify(result, null, 2)}
                 </pre>
-                <div className="mt-4 pt-4 border-t border-border">
-                  <div className="text-[10px] font-mono text-fg-4 uppercase tracking-widest">
+                <div className="mt-4 pt-4 border-t border-n-4">
+                  <div className="text-[10px] font-mono text-n-6 uppercase tracking-widest">
                     Micropayment of $0.01 deducted from tenant wallet
                   </div>
                 </div>

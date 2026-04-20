@@ -7,7 +7,7 @@ function formatMicrocents(mc: number): string {
 
 export default function TransactionList({ transactions }: { transactions: Transaction[] }) {
   if (transactions.length === 0) {
-    return <div className="text-fg-4 text-center py-10 text-xs font-mono">No transactions</div>
+    return <div className="text-n-6 text-center py-10 text-xs font-mono">No transactions</div>
   }
 
   const sorted = [...transactions].sort(
@@ -15,20 +15,20 @@ export default function TransactionList({ transactions }: { transactions: Transa
   )
 
   return (
-    <div className="border border-border divide-y divide-border">
+    <div className="border border-n-4 divide-y divide-n-4">
       {sorted.slice(0, 20).map((tx) => (
         <div key={tx.id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-3 sm:px-4 py-2.5 gap-1 sm:gap-0">
           <div className="flex items-center gap-3 min-w-0">
-            <span className="text-[10px] font-mono text-fg-3 uppercase tracking-wider w-20 shrink-0">
+            <span className="text-[10px] font-mono text-n-8 uppercase tracking-wider w-20 shrink-0">
               {tx.type}
             </span>
-            <span className="text-[10px] font-mono text-fg-4 truncate">{tx.id}</span>
+            <span className="text-[10px] font-mono text-n-6 truncate">{tx.id}</span>
           </div>
           <div className="flex items-center justify-between sm:justify-end gap-4">
-            <span className="text-[10px] font-mono text-fg-4">
+            <span className="text-[10px] font-mono text-n-6">
               {new Date(tx.created_at).toLocaleString()}
             </span>
-            <span className={`font-mono text-xs tabular-nums font-medium ${tx.amount >= 0 ? 'text-fg-2' : 'text-fg-3'}`}>
+            <span className={`font-mono text-xs tabular-nums font-medium ${tx.amount >= 0 ? 'text-n-9' : 'text-n-8'}`}>
               {formatMicrocents(tx.amount)}
             </span>
           </div>
