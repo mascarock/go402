@@ -4,3 +4,7 @@ frontend/dist/
 *.exe
 *.log
 .DS_Store
+
+# local persisted store snapshot
+backend/gopayments.data.json
+backend/gopayments.data.json.tmp
