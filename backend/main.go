@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	chimw "github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
@@ -12,7 +13,12 @@ import (
 )
 
 func main() {
-	r := handler.NewRouter(store.New(),
+	dataPath := os.Getenv("GOPAYMENTS_DATA")
+	if dataPath == "" {
+		dataPath = "gopayments.data.json"
+	}
+
+	r := handler.NewRouter(store.NewPersistent(dataPath),
 		handler.SecurityHeaders,
 		handler.RateLimit,
 		handler.BodyLimit,

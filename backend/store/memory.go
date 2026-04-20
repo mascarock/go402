@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"fmt"
+	"log"
 	"sync"
 	"time"
 
@@ -12,6 +13,7 @@ import (
 
 type MemoryStore struct {
 	mu           sync.RWMutex
+	path         string
 	tenants      map[string]*model.Tenant
 	wallets      map[string]*model.Wallet
 	transactions []*model.Transaction
@@ -19,16 +21,45 @@ type MemoryStore struct {
 	receipts     map[string]*model.PaymentReceipt
 }
 
+// New creates an in-memory store with no persistence. Seeds demo data.
 func New() *MemoryStore {
-	s := &MemoryStore{
+	s := newEmpty("")
+	s.seed()
+	return s
+}
+
+// NewPersistent creates a store backed by a JSON snapshot file at path.
+// If the file exists it is loaded; otherwise demo data is seeded and persisted.
+func NewPersistent(path string) *MemoryStore {
+	s := newEmpty(path)
+	if !s.load() {
+		s.seed()
+		s.mu.Lock()
+		s.persistLocked()
+		s.mu.Unlock()
+	} else {
+		s.logSeededKeys()
+	}
+	return s
+}
+
+func newEmpty(path string) *MemoryStore {
+	return &MemoryStore{
+		path:         path,
 		tenants:      make(map[string]*model.Tenant),
 		wallets:      make(map[string]*model.Wallet),
 		transactions: make([]*model.Transaction, 0),
 		settlements:  make([]*model.Settlement, 0),
 		receipts:     make(map[string]*model.PaymentReceipt),
 	}
-	s.seed()
-	return s
+}
+
+func (s *MemoryStore) logSeededKeys() {
+	log.Println("=== Tenant API keys (loaded from snapshot) ===")
+	for _, t := range s.tenants {
+		log.Printf("  %s (%s)  %s", t.ID, t.Name, t.APIKey)
+	}
+	log.Println("==============================================")
 }
 
 func (s *MemoryStore) seed() {
@@ -40,12 +71,14 @@ func (s *MemoryStore) seed() {
 		{"t_orbit", "Orbit Markets", "OrbitBet"},
 	}
 
+	log.Println("=== Seeded tenant API keys (dev only) ===")
 	for _, t := range tenants {
+		key := generateKey()
 		s.tenants[t.id] = &model.Tenant{
 			ID:        t.id,
 			Name:      t.name,
 			Brand:     t.brand,
-			APIKey:    generateKey(),
+			APIKey:    key,
 			CreatedAt: time.Now().Add(-72 * time.Hour),
 		}
 		s.wallets[t.id] = &model.Wallet{
@@ -54,7 +87,9 @@ func (s *MemoryStore) seed() {
 			Currency:  "USD",
 			UpdatedAt: time.Now(),
 		}
+		log.Printf("  %s (%s)  %s", t.id, t.name, key)
 	}
+	log.Println("==========================================")
 
 	// Seed some transactions
 	types := []model.TransactionType{model.TxDeposit, model.TxPayment, model.TxPayment, model.TxDeposit}
@@ -131,6 +166,7 @@ func (s *MemoryStore) CreateTenant(name, brand string) *model.Tenant {
 		Currency:  "USD",
 		UpdatedAt: time.Now(),
 	}
+	s.persistLocked()
 	return t
 }
 
@@ -162,6 +198,7 @@ func (s *MemoryStore) Deposit(tenantID string, amount int64) (*model.Transaction
 		CreatedAt: time.Now(),
 	}
 	s.transactions = append(s.transactions, tx)
+	s.persistLocked()
 	return tx, nil
 }
 
@@ -187,6 +224,7 @@ func (s *MemoryStore) Withdraw(tenantID string, amount int64) (*model.Transactio
 		CreatedAt: time.Now(),
 	}
 	s.transactions = append(s.transactions, tx)
+	s.persistLocked()
 	return tx, nil
 }
 
@@ -237,6 +275,7 @@ func (s *MemoryStore) ProcessPayment(tenantID string, amount int64, metadata map
 		CreatedAt: time.Now(),
 	}
 	s.transactions = append(s.transactions, tx)
+	s.persistLocked()
 	return tx, nil
 }
 
@@ -250,6 +289,7 @@ func (s *MemoryStore) CreateReceipt(tenantID string, amount int64) *model.Paymen
 		IssuedAt: time.Now(),
 	}
 	s.receipts[r.Token] = r
+	s.persistLocked()
 	return r
 }
 
@@ -261,6 +301,7 @@ func (s *MemoryStore) ValidateReceipt(token string) (*model.PaymentReceipt, bool
 		return nil, false
 	}
 	r.Used = true
+	s.persistLocked()
 	return r, true
 }
 
@@ -317,6 +358,7 @@ func (s *MemoryStore) CreateSettlement(fromTenant, toTenant string, amount int64
 		CreatedAt: time.Now(),
 	})
 
+	s.persistLocked()
 	return settlement, nil
 }
 
