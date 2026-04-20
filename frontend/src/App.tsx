@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard'
 import Tenant from './pages/Tenant'
 import PaymentDemo from './pages/PaymentDemo'
 import Settlements from './pages/Settlements'
+import AgentEconomy from './pages/AgentEconomy'
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/tenants/:id" element={<Tenant />} />
         <Route path="/demo" element={<PaymentDemo />} />
+        <Route path="/agents" element={<AgentEconomy />} />
         <Route path="/settlements" element={<Settlements />} />
       </Routes>
     </Layout>

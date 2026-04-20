@@ -4,6 +4,7 @@ import { useTheme, Theme } from '../hooks/useTheme'
 
 const nav = [
   { path: '/', label: 'Dashboard' },
+  { path: '/agents', label: 'Agents' },
   { path: '/demo', label: 'x402' },
   { path: '/settlements', label: 'Settlements' },
 ]
