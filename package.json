@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently --names \"api,web\" --prefix-colors \"cyan,magenta\" \"npm run dev:api\" \"npm run dev:web\"",
     "dev:api": "cd backend && go run .",
-    "dev:web": "wait-on http://localhost:8080/api/stats && cd frontend && npm run dev"
+    "dev:web": "wait-on http-get://localhost:8080/api/stats && cd frontend && npm run dev"
   },
   "repository": {
     "type": "git",
