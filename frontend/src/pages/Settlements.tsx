@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { api, Tenant, Settlement } from '../api/client'
 
 function formatMicrocents(mc: number): string {
-  return '$' + (Math.abs(mc) / 10000000).toFixed(2)
+  return '$' + (Math.abs(mc) / 1000000).toFixed(2)
 }
 
 export default function Settlements() {

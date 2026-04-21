@@ -5,7 +5,7 @@ import StatsBar from '../components/StatsBar'
 import TransactionList from '../components/TransactionList'
 
 function formatMicrocents(mc: number): string {
-  return '$' + (mc / 10000000).toFixed(2)
+  return '$' + (mc / 1000000).toFixed(2)
 }
 
 export default function Dashboard() {
