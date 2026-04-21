@@ -1,4 +1,4 @@
-# GoPayments - Micropayments Simulation Platform
+# go402 — x402 Micropayments Simulation
 
 
 
@@ -6,24 +6,23 @@ https://github.com/user-attachments/assets/36610aab-e297-4444-8be0-e6c1f52bdc35
 
 
 
-Full-stack x402 micropayments demo: Go backend + React frontend simulating multi-tenant payment processing with HTTP 402 Payment Required flows.
+Full-stack simulation of the [x402 protocol](https://x402.org) — the HTTP-native payment standard for machine-to-machine payments. Go backend + React frontend demonstrating how AI agents can autonomously pay for access to resources using HTTP `402 Payment Required`.
+
+> x402 is now a Linux Foundation standard (April 2026), backed by Coinbase, Stripe, Cloudflare, and others.
 
 ## Quick Start
 
-**Backend** (terminal 1):
+**Prerequisites:** [Go](https://go.dev/dl/) and [Node.js](https://nodejs.org) installed.
+
 ```bash
-cd backend
-go run .
-# → http://localhost:8080
+git clone https://github.com/mascarock/go402.git
+cd go402
+npm install
+cd frontend && npm install && cd ..
+npm run dev
 ```
 
-**Frontend** (terminal 2):
-```bash
-cd frontend
-npm install
-npm run dev
-# → http://localhost:5173
-```
+That's it. `npm run dev` starts both the Go API (`localhost:8080`) and the React frontend (`localhost:5173`) in one terminal.
 
 ## Architecture
 
