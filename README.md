@@ -1,4 +1,6 @@
-# GoPayments — Micropayments Simulation Platform
+# GoPayments - Micropayments Simulation Platform
+
+<img width="400" height="169" alt="gopaymentsvid" src="https://github.com/user-attachments/assets/c0c49895-2129-47f5-9128-ba734520dace" />
 
 Full-stack x402 micropayments demo: Go backend + React frontend simulating multi-tenant payment processing with HTTP 402 Payment Required flows.
 
