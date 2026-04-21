@@ -1,0 +1,26 @@
+{
+  "name": "gopayments",
+  "version": "1.0.0",
+  "description": "Full-stack x402 micropayments demo: Go backend + React frontend simulating multi-tenant payment processing with HTTP 402 Payment Required flows.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently --names \"api,web\" --prefix-colors \"cyan,magenta\" \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "cd backend && go run .",
+    "dev:web": "wait-on http://localhost:8080/api/stats && cd frontend && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mascarock/go402.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mascarock/go402/issues"
+  },
+  "homepage": "https://github.com/mascarock/go402#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "wait-on": "^9.0.5"
+  }
+}
